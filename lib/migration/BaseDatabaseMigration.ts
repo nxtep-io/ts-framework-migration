@@ -1,5 +1,3 @@
-import { Database } from 'ts-framework';
-
 export default abstract class BaseDatabaseMigration {
   constructor(public name: String, public options: any = {}) {
 
