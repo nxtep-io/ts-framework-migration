@@ -1,4 +1,5 @@
-import Server, { Logger } from 'ts-framework';
+import Server from 'ts-framework';
+import { Logger } from 'ts-framework-common';
 import { BaseDatabaseMigration, DatabaseMigrationJob } from '../lib';
 
 describe('lib.jobs.DatabaseMigrationJob', () => {
@@ -25,11 +26,13 @@ describe('lib.jobs.DatabaseMigrationJob', () => {
 
   beforeEach(() => {
     server = new Server({
-      logger: Logger,
+      logger: Logger.getInstance(),
       port: process.env.PORT as any || 3333,
-      routes: {
-        get: {
-          '/': (req, res) => res.success({ test: 'ok' })
+      router: {
+        routes: {
+          get: {
+            '/': (req, res) => res.success({ test: 'ok' })
+          }
         }
       }
     });

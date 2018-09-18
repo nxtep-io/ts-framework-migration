@@ -1,8 +1,11 @@
-import Server, { Logger, BaseJob } from 'ts-framework';
+import Server from 'ts-framework';
+import { Logger as BaseLogger, Job, JobOptions } from 'ts-framework-common';
 import BaseDatabaseMigration from '../migration/BaseDatabaseMigration';
 import AsyncUtil from '../util/AsyncUtil';
 
-export interface DatabaseMigrationJobOptions {
+const Logger = BaseLogger.getInstance();
+
+export interface DatabaseMigrationJobOptions extends JobOptions {
   verbose?: boolean,
   exitOnError?: boolean;
   migration?: {
@@ -11,10 +14,11 @@ export interface DatabaseMigrationJobOptions {
   }
 }
 
-export default class DatabaseMigrationJob extends BaseJob {
-
+export default class DatabaseMigrationJob extends Job {
   constructor(public options: DatabaseMigrationJobOptions = {}) {
-    super('DatabaseMigrationJob', options);
+    super({
+      name: 'DatabaseMigrationJob',
+    });
   }
 
   /**
