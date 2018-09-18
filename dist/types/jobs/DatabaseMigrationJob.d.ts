@@ -1,5 +1,6 @@
-import Server, { BaseJob } from 'ts-framework';
-export interface DatabaseMigrationJobOptions {
+import Server from 'ts-framework';
+import { Job, JobOptions } from 'ts-framework-common';
+export interface DatabaseMigrationJobOptions extends JobOptions {
     verbose?: boolean;
     exitOnError?: boolean;
     migration?: {
@@ -7,7 +8,7 @@ export interface DatabaseMigrationJobOptions {
         pipeline: any[];
     };
 }
-export default class DatabaseMigrationJob extends BaseJob {
+export default class DatabaseMigrationJob extends Job {
     options: DatabaseMigrationJobOptions;
     constructor(options?: DatabaseMigrationJobOptions);
     /**

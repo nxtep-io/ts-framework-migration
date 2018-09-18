@@ -25,7 +25,7 @@ describe('lib.jobs.DatabaseMigrationJob', () => {
   }
 
   beforeEach(() => {
-    server = new Server({
+    server = new Server{
       logger: Logger.getInstance(),
       port: process.env.PORT as any || 3333,
       router: {
