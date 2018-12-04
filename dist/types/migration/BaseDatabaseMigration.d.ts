@@ -17,7 +17,7 @@ export default abstract class BaseDatabaseMigration {
      * Creates a QueryBuilder for the recors that should be migrated,
      * will only be called is ```hasWork()``` have returned ```true```.
      */
-    abstract map(): SelectQueryBuilder<any>;
+    abstract map<T = any>(): SelectQueryBuilder<T>;
     /**
      * Creates an asyncIterator for the ```map()``` QueryBuilder for performing a paginated query
      * over the records
@@ -25,7 +25,7 @@ export default abstract class BaseDatabaseMigration {
      * @param count The number of records to be iterated over
      * @param pageSize The number of records to be taken on each iteration
      */
-    private paginatedMap(count, pageSize);
+    private paginatedMap<T>(count, pageSize);
     /**
      * Handles the migrations of the mapped documents.
      *
