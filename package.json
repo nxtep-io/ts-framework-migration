@@ -25,6 +25,7 @@
     "rimraf": "^2.6.2",
     "ts-framework": "nxtep-io/ts-framework#v2.1",
     "ts-framework-common": "nxtep-io/ts-framework-common#2.0.1",
+    "typeorm": "^0.2.9",
     "typescript": "^2.5.3"
   },
   "devDependencies": {

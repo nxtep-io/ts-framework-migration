@@ -1,6 +1,7 @@
 import Server from 'ts-framework';
 import { Logger } from 'ts-framework-common';
 import { BaseDatabaseMigration, DatabaseMigrationJob } from '../lib';
+import QueryBuilderMock from './__mock__/QueryBuilder.util';
 
 describe('lib.jobs.DatabaseMigrationJob', () => {
 
@@ -13,9 +14,12 @@ describe('lib.jobs.DatabaseMigrationJob', () => {
     async hasWork(): Promise<boolean> {
       return true;
     }
-    async map(): Promise<any[]> {
-      return [1, 2];
+     
+    map() {
+      return <any>(new QueryBuilderMock());
     }
+
+
     async migrate(data: any[]): Promise<void> {
       return;
     }
@@ -25,7 +29,7 @@ describe('lib.jobs.DatabaseMigrationJob', () => {
   }
 
   beforeEach(() => {
-    server = new Server{
+    server = new Server({
       logger: Logger.getInstance(),
       port: process.env.PORT as any || 3333,
       router: {

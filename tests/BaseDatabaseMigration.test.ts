@@ -1,4 +1,5 @@
 import { BaseDatabaseMigration } from '../lib';
+import QueryBuilderMock from './__mock__/QueryBuilder.util';
 
 describe('lib.migration.BaseDatabaseMigration', () => {
 
@@ -14,8 +15,8 @@ describe('lib.migration.BaseDatabaseMigration', () => {
       async hasWork(): Promise<boolean> {
         return true;
       }
-      async map(): Promise<any[]> {
-        return [1, 2];
+      map() {
+        return <any>(new QueryBuilderMock());
       }
       async migrate(data: any[]): Promise<void> {
         hasMigrated = true;
@@ -47,9 +48,11 @@ describe('lib.migration.BaseDatabaseMigration', () => {
       async hasWork(): Promise<boolean> {
         return true;
       }
-      async map(): Promise<any[]> {
-        return [];
+
+      map(): any {
+        return new QueryBuilderMock([]);
       }
+
       async migrate(data: any[]): Promise<void> {
         hasMigrated = true;
         return;
@@ -80,7 +83,7 @@ describe('lib.migration.BaseDatabaseMigration', () => {
       async hasWork(): Promise<boolean> {
         return true;
       }
-      async map(): Promise<any[]> {
+      map(): any {
         hasPassed = true;
         throw new Error("Method not implemented.");
       }
@@ -118,8 +121,8 @@ describe('lib.migration.BaseDatabaseMigration', () => {
       async hasWork(): Promise<boolean> {
         return true;
       }
-      async map(): Promise<any[]> {
-        return [1, 2, 3];
+      map(): any {
+        return new QueryBuilderMock([1, 2, 3]);
       }
       async migrate(data: any[]): Promise<void> {
         hasMigrated = true;
@@ -148,7 +151,6 @@ describe('lib.migration.BaseDatabaseMigration', () => {
 
     /** A test migration that will always succeed */
     class TestMapErrorMigration extends BaseDatabaseMigration {
-      s
       constructor() {
         super('TestMapErrorMigration');
       }
@@ -156,7 +158,7 @@ describe('lib.migration.BaseDatabaseMigration', () => {
       async hasWork(): Promise<boolean> {
         return true;
       }
-      async map(): Promise<any[]> {
+      map(): any {
         return [1, 2, 3];
       }
       async migrate(data: any[]): Promise<void> {
