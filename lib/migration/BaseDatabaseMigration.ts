@@ -23,7 +23,7 @@ export default abstract class BaseDatabaseMigration {
    * Creates a QueryBuilder for the recors that should be migrated,
    * will only be called is ```hasWork()``` have returned ```true```.
    */
-  public abstract map(): SelectQueryBuilder<any>;
+  public abstract map<T = any>(): SelectQueryBuilder<T>;
 
   /**
    * Creates an asyncIterator for the ```map()``` QueryBuilder for performing a paginated query
@@ -32,11 +32,11 @@ export default abstract class BaseDatabaseMigration {
    * @param count The number of records to be iterated over
    * @param pageSize The number of records to be taken on each iteration
    */
-  private async *paginatedMap(count, pageSize): AsyncIterableIterator<any> {
+  private async *paginatedMap<T = any>(count, pageSize): AsyncIterableIterator<any> {
     let index = 0;
 
     while (index < count) {
-      yield this.map().take(pageSize).skip(index).getMany();
+      yield this.map<T>().take(pageSize).skip(index).getMany();
       index += pageSize;
     }
   }
